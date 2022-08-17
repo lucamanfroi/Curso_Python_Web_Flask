@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask('project')
 
@@ -14,8 +14,22 @@ def hello_world():
 
 # New route
 @app.route('/test')
-@app.route("/test/<var>")
-def funcao_teste(var = ""):
-    return "Testing new route<br>Var: {}".format(var), 200
+@app.route('/test/<var>')
+def funcao_teste(var=''):
+    return f'Testing new route<br>Var: {var}', 200
+
+# Form route
+@app.route('/form')
+def form():
+    return render_template('form.html'), 200
+
+# Form treatment route
+@app.route('/receive_form', methods= ['GET', 'POST'])
+def receive_form():
+    if request.method == 'POST':
+        name = request.form['name']
+        return f'Name: {name}', 200
+    else:
+        return 'Cant call GET directly'
 
 app.run()
