@@ -12,5 +12,10 @@ def hello_world():
     ]
     return render_template('hello.html', aProducts=products, n=name), 200
 
+# New route
+@app.route('/test')
+@app.route("/test/<var>")
+def funcao_teste(var = ""):
+    return "Testing new route<br>Var: {}".format(var), 200
 
 app.run()
