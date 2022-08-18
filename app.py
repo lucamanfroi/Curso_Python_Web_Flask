@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for
 
 app = Flask('project')
-
+# Creating a secret key
+app.secret_key = 'secret'
 
 @app.route('/')
 def hello_world():
@@ -31,5 +32,28 @@ def receive_form():
         return f'Name: {name}', 200
     else:
         return 'Cant call GET directly'
+
+# Login form route
+@app.route('/login')
+def login():
+    return render_template('login.html'), 200
+
+# Login treatment route
+@app.route('/login_validation', methods=['POST'])
+def login_validation():
+    if request.form['user'] == 'manfroi' and request.form['password'] == '12345':
+        session['user'] = request.form['user']
+        session['code'] = 1
+        return redirect(url_for('restricted_access'))
+    else:
+        return 'User/password wrong, try again.', 200
+
+# Restricted area route
+@app.route('/restricted')
+def restricted_access():
+    if session['code'] == 1:
+        return f'Welcome to the restricted area!<br>User: {session["user"]}<br>Código: {session["code"]}', 200
+    else:
+        return 'Invalid access', 200
 
 app.run()

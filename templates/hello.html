@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Hello World with Jinja2</title>
+	<meta charset="UTF-8">
+	<title>Hello World with Jinja2</title>
 </head>
+
 <body>
-    Hello, we're going to use HTML files<br>
-    Name: {{n}}
-    <table border="1">
-        {% for i in aProducts %}
-        <tr>
-            <td>{{ i.name }}</td>
-            <td>{{ i.price }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+	Hello, we're going to use HTML files<br>
+	Name: {{n}}
+	<table border="1">
+		{% for i in aProducts %}
+		<tr>
+			<td>{{ i.name }}</td>
+			<td>{{ i.price }}</td>
+		</tr>
+		{% endfor %}
+	</table>
 </body>
+
 </html>
